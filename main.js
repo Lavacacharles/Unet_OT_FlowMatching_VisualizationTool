@@ -38,7 +38,7 @@ const WORKSPACES = {
     'evolution': {
         title: "Training Evolution",
         desc: "Acciones:<br>1) Desplace el control 'Training Epoch' para observar el movimiento de los puntos.<br>2) Haga clic en un punto para inspeccionar su imagen generada.",
-        help: "Contexto Analítico: Explore cómo el modelo aprende a organizar y separar las clases en el espacio latente a través de las distintas etapas del entrenamiento.",
+        help: "Contexto: Explore cómo el modelo aprende a organizar y separar las clases en el espacio latente a través de las distintas etapas del entrenamiento.",
         emptyState: "Seleccione un punto en el espacio latente para identificar su clase y visualizar la imagen generada en la época actual.",
         defaults: { epoch: 1500, step: 5, compareMode: false },
         minimize: ['control-step']
@@ -46,7 +46,7 @@ const WORKSPACES = {
     'generation': {
         title: "Generation Dynamics",
         desc: "Acciones:<br>1) Seleccione un punto en el gráfico.<br>2) Mueva el control 'Generation Step' para observar cómo el ruido se transforma en una imagen.",
-        help: "Contexto Analítico: Analice la trayectoria de generación de una muestra y correlacione cómo la atención espacial guía los cambios visuales paso a paso.",
+        help: "Contexto: Analice la trayectoria de generación de una muestra y correlacione cómo la atención espacial guía los cambios visuales paso a paso.",
         emptyState: "La dinámica de generación se evalúa a nivel de muestra. Seleccione un punto para desplegar su trayectoria completa de probabilidad.",
         defaults: { epoch: 1500, step: 0, compareMode: false },
         minimize: ['control-epoch']
@@ -54,7 +54,7 @@ const WORKSPACES = {
     'compare': {
         title: "Structural Comparison",
         desc: "Acciones:<br>1) Modifique la época de entrenamiento.<br>2) Haga clic en cualquier punto para contrastar sus resultados en el panel derecho.",
-        help: "Contexto Analítico: Compare simultáneamente las representaciones latentes, mapas de atención y resultados de un estado inmaduro (Época 250) frente al estado actual.",
+        help: "Contexto: Compare simultáneamente las representaciones latentes, mapas de atención y resultados de un estado inmaduro (Época 250) frente al estado actual.",
         emptyState: "Seleccione una muestra para comparar directamente su representación visual en la época 250 versus la época seleccionada.",
         defaults: { epoch: 1500, step: 5, compareMode: true },
         minimize: ['control-step']
@@ -69,6 +69,7 @@ d3.json('assets/dataset.json').then(data => {
     globalYDomain = d3.extent(dataset, d => d.y);
     
     setupUI();
+    setupLegend();
     State.notify(); 
 });
 
@@ -274,4 +275,21 @@ function renderImagePair(container, dataRecord, title) {
     const attnBox = grid.append("div").attr("class", "detail-img-box");
     attnBox.append("span").text("Atención Espacial");
     attnBox.append("img").attr("src", dataRecord.attention_path);
+}
+function setupLegend() {
+    const legendContainer = d3.select("#color-legend");
+    
+    // Iteramos sobre las llaves del diccionario de etiquetas (0 al 9)
+    Object.keys(cifar10_labels_es).forEach(key => {
+        const item = legendContainer.append("div").attr("class", "legend-item");
+        
+        // Círculo de color
+        item.append("span")
+            .attr("class", "legend-color")
+            .style("background-color", colorScale(+key)); // Convertimos la llave a número para que coincida con el dataset
+            
+        // Texto de la clase (avión, perro, etc.)
+        item.append("span")
+            .text(cifar10_labels_es[key]);
+    });
 }
