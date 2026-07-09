@@ -74,6 +74,7 @@ input[type=range] { width: 100%; cursor: pointer; }
     letter-spacing: 0.5px;
 }
 
+
 #task-desc { 
     margin: 0; 
     font-size: 14px; /* Aumentamos el tamaño de fuente (antes 13px) */
@@ -81,7 +82,8 @@ input[type=range] { width: 100%; cursor: pointer; }
     font-weight: 500; /* Hacemos la letra ligeramente más gruesa */
     line-height: 1.5; /* Mejoramos el espaciado entre líneas */
 }
-/* Contextual Help */
+/* 
+Contextual Help */
 #contextual-help { 
     margin-top: auto; 
     padding: 10px; 
