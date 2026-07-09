@@ -1,0 +1,119 @@
+:root {
+    --bg-color: #f8f9fa;
+    --border-color: #ddd;
+    --text-color: #333;
+    --accent: #2c3e50;
+    --highlight: #3498db;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Status Bar */
+#status-bar {
+    background: var(--accent);
+    color: white;
+    padding: 8px 20px;
+    font-size: 13px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #1a252f;
+}
+
+#app-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+#sidebar { width: 260px; padding: 20px; border-right: 1px solid var(--border-color); background: white; display: flex; flex-direction: column; }
+#scatter-area { flex: 1; display: flex; flex-direction: column; position: relative; }
+#detail-panel { width: 340px; padding: 20px; border-left: 1px solid var(--border-color); background: white; overflow-y: auto; }
+
+/* Tipografía y Controles */
+h3 { margin: 0 0 15px 0; font-size: 13px; text-transform: uppercase; color: #7f8c8d; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+.workspace-group, .control-group { margin-bottom: 30px; }
+
+.ws-btn { 
+    display: block; width: 100%; padding: 10px; margin-bottom: 8px; 
+    background: white; border: 1px solid #ccc; border-radius: 4px; 
+    text-align: left; cursor: pointer; font-size: 13px; transition: all 0.2s;
+}
+.ws-btn:hover { background: #f0f4f8; }
+.ws-btn.active { background: #e8f4f8; border-color: var(--highlight); color: #2980b9; font-weight: bold; }
+
+.control-wrapper { margin-bottom: 15px; transition: opacity 0.3s; }
+.control-wrapper label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
+input[type=range] { width: 100%; cursor: pointer; }
+
+/* Progressive Disclosure: Atenuación visual en lugar de ocultar completamente */
+.minimized-control { opacity: 0.4; }
+.minimized-control:hover { opacity: 1; }
+
+/* Task Banner */
+#task-banner { 
+    padding: 15px 20px; 
+    /* background-color: #f0f7fb; */
+    border-bottom: 1px solid var(--border-color); 
+    /* border-left: 4px solid var(--highlight); */
+    flex-shrink: 0; 
+}
+
+#task-title { 
+    margin: 0 0 6px 0; 
+    font-size: 16px; 
+    color: var(--accent); 
+    text-transform: uppercase; /* Pone el título en mayúsculas para darle más peso */
+    letter-spacing: 0.5px;
+}
+
+#task-desc { 
+    margin: 0; 
+    font-size: 14px; /* Aumentamos el tamaño de fuente (antes 13px) */
+    color: #222; /* Un gris casi negro para máxima legibilidad (antes #555) */
+    font-weight: 500; /* Hacemos la letra ligeramente más gruesa */
+    line-height: 1.5; /* Mejoramos el espaciado entre líneas */
+}
+/* Contextual Help */
+#contextual-help { 
+    margin-top: auto; 
+    padding: 15px; 
+    background: #f9f9f9; 
+    border-radius: 4px; 
+    border: 1px solid #eee; 
+    font-size: 16px; 
+    color: #000000; 
+    font-style: italic; 
+    font-weight: 200;
+}
+
+/* Scatterplots */
+#scatter-container { flex: 1; display: flex; width: 100%; height: 100%; }
+.scatter-view { flex: 1; height: 100%; position: relative; border-right: 1px dashed var(--border-color); }
+.hidden { display: none !important; }
+svg { width: 100%; height: 100%; }
+
+.view-title { position: absolute; top: 10px; left: 15px; margin: 0; font-size: 12px; color: #555; background: rgba(255,255,255,0.9); padding: 4px 8px; border-radius: 4px; border: 1px solid #ddd; pointer-events: none; }
+
+.dot { opacity: 0.8; transition: stroke-width 0.1s, r 0.1s; cursor: pointer; }
+.dot:hover { stroke: black; stroke-width: 2px; }
+
+/* Tooltip */
+#tooltip { position: absolute; background: white; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 8px; border-radius: 4px; pointer-events: none; font-size: 12px; z-index: 100; }
+#tt-header { font-weight: bold; margin-bottom: 5px; }
+#tt-img { width: 48px; height: 48px; image-rendering: pixelated; border: 1px solid #eee; }
+
+/* Details on Demand */
+.empty-state { text-align: center; color: #7f8c8d; font-size: 13px; margin-top: 40px; font-style: italic; padding: 0 10px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.detail-img-box { text-align: center; }
+.detail-img-box span { display: block; font-size: 11px; margin-bottom: 3px; color: #666; }
+.detail-img-box img { width: 100%; border: 1px solid #ddd; border-radius: 4px; image-rendering: pixelated; }
+.detail-meta { font-size: 13px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }

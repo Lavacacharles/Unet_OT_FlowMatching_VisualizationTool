@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Optimal Transport Flow Matching - Visual Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <header id="status-bar">
+        <span><b>Context:</b> <span id="hud-workspace">Training Evolution</span></span> |
+        <span><b>Epoch:</b> <span id="hud-epoch">1500</span></span> |
+        <span><b>Step:</b> <span id="hud-step">5</span></span> |
+        <span><b>Sample:</b> <span id="hud-selected">None</span></span>
+    </header>
+
+    <div id="app-container">
+        <aside id="sidebar">
+            <section class="workspace-group">
+                <h3>Test All Functionalities</h3>
+                <button class="ws-btn active" data-ws="evolution">Training Evolution</button>
+                <button class="ws-btn" data-ws="generation">Generation Dynamics</button>
+                <button class="ws-btn" data-ws="compare">Structural Comparison</button>
+            </section>
+
+            <section class="control-group">
+                <h3>Exploration Controls</h3>
+                
+                <div id="control-epoch" class="control-wrapper">
+                    <label>Training Epoch</label>
+                    <input type="range" id="epoch-slider" min="250" max="1500" step="250" value="1500">
+                </div>
+                
+                <div id="control-step" class="control-wrapper">
+                    <label>Generation Step</label>
+                    <input type="range" id="step-slider" min="0" max="5" step="1" value="5">
+                </div>
+            </section>
+
+            <section id="contextual-help">
+                </section>
+        </aside>
+
+        <main id="scatter-area">
+            <div id="task-banner">
+                <h2 id="task-title">Training Evolution</h2>
+                <p id="task-desc">Explore cómo se organiza el espacio de representación latente a través del entrenamiento.</p>
+            </div>
+
+            <div id="scatter-container">
+                <div class="scatter-view" id="view-primary">
+                    <h4 class="view-title" id="title-primary">Epoch 1500</h4>
+                    <svg id="svg-primary"></svg>
+                </div>
+                <div class="scatter-view hidden" id="view-secondary">
+                    <h4 class="view-title" id="title-secondary">Epoch 1500</h4>
+                    <svg id="svg-secondary"></svg>
+                </div>
+            </div>
+            
+            <div id="tooltip" class="hidden">
+                <div id="tt-header">Sample <span id="tt-id"></span> | <span id="tt-class"></span></div>
+                <img id="tt-img" src="" alt="Thumbnail">
+            </div>
+        </main>
+
+        <aside id="detail-panel">
+            <h3>Details on Demand</h3>
+            <div id="detail-content">
+                </div>
+        </aside>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
